@@ -45,15 +45,18 @@ type Ingredient struct {
 
 // Drink is a served drink.
 type Drink struct {
-	Name            string  `json:"name"`
-	AlcoholContents float64 `json:"alcoholContents"`
-	VolumeOz        float64 `json:"oz"`
+	Name            string   `json:"name"`
+	Method          string   `json:"method,omitempty"`
+	AlcoholContents float64  `json:"alcoholContents"`
+	VolumeOz        float64  `json:"oz"`
+	Recipe          []*Drink `json:"recipe,omitempty"`
 }
 
 // Mix mixes drinks together.
-func Mix(name string, drinks []*Drink) *Drink {
+func Mix(name, method string, drinks []*Drink) *Drink {
 	drink := &Drink{
-		Name: name,
+		Name:   name,
+		Method: method,
 	}
 
 	var drinkOz, alcoholOz float64
@@ -66,21 +69,16 @@ func Mix(name string, drinks []*Drink) *Drink {
 
 		drinkOz += d.VolumeOz
 		alcoholOz += d.VolumeOz * d.AlcoholContents
+		drink.Recipe = append(drink.Recipe, d)
 	}
 
 	drink.VolumeOz = drinkOz
-	drink.AlcoholContents = RoundTo(alcoholOz/drinkOz, 2)
+	drink.AlcoholContents = roundTo(alcoholOz/drinkOz, 2)
 
 	return drink
 }
 
-// Shake is an alias for Mix.
-var Shake = Mix
-
-// Stir is an alias for Mix.
-var Stir = Mix
-
-// RoundTo rounds a number to the specified number of decimals.
-func RoundTo(num float64, decimals int) float64 {
+// roundTo rounds a number to the specified number of decimals.
+func roundTo(num float64, decimals int) float64 {
 	return math.Round(num*math.Pow(10, float64(decimals))) / math.Pow(10, float64(decimals))
 }

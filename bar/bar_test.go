@@ -8,6 +8,7 @@ import (
 func TestMix(t *testing.T) {
 	type args struct {
 		name   string
+		method string
 		drinks []*Drink
 	}
 	tests := []struct {
@@ -18,7 +19,8 @@ func TestMix(t *testing.T) {
 		{
 			name: "Should mix drinks",
 			args: args{
-				name: "Cosmopolitan",
+				name:   "Cosmopolitan",
+				method: "Shake",
 				drinks: []*Drink{
 					{Name: "Vodka", AlcoholContents: 0.4, VolumeOz: 1},
 					{Name: "Cointreau", AlcoholContents: 0.4, VolumeOz: 0.5},
@@ -28,14 +30,22 @@ func TestMix(t *testing.T) {
 			},
 			want: &Drink{
 				Name:            "Cosmopolitan",
+				Method:          "Shake",
 				VolumeOz:        3,
 				AlcoholContents: 0.2,
+				Recipe: []*Drink{
+					{Name: "Vodka", AlcoholContents: 0.4, VolumeOz: 1},
+					{Name: "Cointreau", AlcoholContents: 0.4, VolumeOz: 0.5},
+					{Name: "Lime Juice", AlcoholContents: 0, VolumeOz: 0.5},
+					{Name: "Cranberry Juice", AlcoholContents: 0, VolumeOz: 1},
+				},
 			},
 		},
 		{
 			name: "Should mix drinks and ignore nil drinks",
 			args: args{
-				name: "Cosmopolitan",
+				name:   "Cosmopolitan",
+				method: "Shake",
 				drinks: []*Drink{
 					nil,
 					{Name: "Vodka", AlcoholContents: 0.4, VolumeOz: 1},
@@ -48,21 +58,28 @@ func TestMix(t *testing.T) {
 			},
 			want: &Drink{
 				Name:            "Cosmopolitan",
+				Method:          "Shake",
 				VolumeOz:        3,
 				AlcoholContents: 0.2,
+				Recipe: []*Drink{
+					{Name: "Vodka", AlcoholContents: 0.4, VolumeOz: 1},
+					{Name: "Cointreau", AlcoholContents: 0.4, VolumeOz: 0.5},
+					{Name: "Lime Juice", AlcoholContents: 0, VolumeOz: 0.5},
+					{Name: "Cranberry Juice", AlcoholContents: 0, VolumeOz: 1},
+				},
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Mix(tt.args.name, tt.args.drinks); !reflect.DeepEqual(got, tt.want) {
+			if got := Mix(tt.args.name, tt.args.method, tt.args.drinks); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Mix() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestRoundTo(t *testing.T) {
+func Test_roundTo(t *testing.T) {
 	type args struct {
 		num      float64
 		decimals int
@@ -91,7 +108,7 @@ func TestRoundTo(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := RoundTo(tt.args.num, tt.args.decimals); got != tt.want {
+			if got := roundTo(tt.args.num, tt.args.decimals); got != tt.want {
 				t.Errorf("roundTo() = %v, want %v", got, tt.want)
 			}
 		})

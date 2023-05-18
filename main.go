@@ -56,47 +56,47 @@ func main() {
 
 	drinks := []*bar.Drink{
 		// Gin
-		bar.Stir("Gin and Tonic", []*bar.Drink{
+		bar.Mix("Gin and Tonic", "Stir", []*bar.Drink{
 			b.Use("Gin", 1.5),
 			b.Use("Tonic", 4),
 			b.Use("Lime Wedge", 0),
 		}),
-		bar.Shake("Gin Fizz", []*bar.Drink{
+		bar.Mix("Gin Fizz", "Shake", []*bar.Drink{
 			b.Use("Gin", 2),
-			b.Use("Lemon Juice", 0.75),
+			b.Use("Lemon Juice", 1),
 			b.Use("Simple Syrup", 0.5),
 			b.Use("Soda", 2),
 			b.Use("Lime Wedge", 0),
 		}),
-		bar.Shake("Negroni", []*bar.Drink{
+		bar.Mix("Negroni", "Stir", []*bar.Drink{
 			b.Use("Gin", 1),
 			b.Use("Sweet Vermouth", 1),
 			b.Use("Campari", 1),
 			b.Use("Orange Peel", 0),
 		}),
-		bar.Shake("Blackcurrant Gimlet", []*bar.Drink{
+		bar.Mix("Blackcurrant Gimlet", "Shake", []*bar.Drink{
 			b.Use("Gin", 1.5),
-			b.Use("Blackcurrant Juice", 2),
 			b.Use("Lime Juice", 0.75),
 			b.Use("Simple Syrup", 0.5),
+			b.Use("Blackcurrant Juice", 2),
 			b.Use("Lime Wedge", 0),
 		}),
 
 		// Tequila
-		bar.Shake("Pineapple Margarita", []*bar.Drink{
+		bar.Mix("Pineapple Margarita", "Shake", []*bar.Drink{
 			b.Use("Tequila", 1),
 			b.Use("Lime Juice", 1),
 			b.Use("Cointreau", 0.5),
 			b.Use("Pineapple Juice", 2),
 			b.Use("Lime Wedge", 0),
 		}),
-		bar.Stir("Paloma", []*bar.Drink{
+		bar.Mix("Paloma", "Stir", []*bar.Drink{
 			b.Use("Tequila", 1.5),
 			b.Use("Grapefruit Soda", 3),
 			b.Use("Lime Juice", 0.5),
 			b.Use("Lime Wedge", 0),
 		}),
-		bar.Stir("Tequila Sunrise", []*bar.Drink{
+		bar.Mix("Tequila Sunrise", "Pour orderly", []*bar.Drink{
 			b.Use("Tequila", 1.5),
 			b.Use("Orange Juice", 3),
 			b.Use("Grenadine Syrup", 0.5),
@@ -104,14 +104,14 @@ func main() {
 		}),
 
 		// Rum
-		bar.Shake("Pomegranate Daiquiri", []*bar.Drink{
+		bar.Mix("Pomegranate Daiquiri", "Shake", []*bar.Drink{
 			b.Use("Rum", 1.5),
 			b.Use("Lime Juice", 0.75),
-			b.Use("Simple Syrup", 0.5),
+			b.Use("Grenadine Syrup", 0.5),
 			b.Use("Pomegranate Juice", 2),
 			b.Use("Lime Wedge", 0),
 		}),
-		bar.Shake("Mojito", []*bar.Drink{
+		bar.Mix("Mojito", "Stir", []*bar.Drink{
 			b.Use("Rum", 1.5),
 			b.Use("Mint", 0),
 			b.Use("Simple Syrup", 1),
@@ -119,19 +119,19 @@ func main() {
 			b.Use("Soda", 2),
 			b.Use("Lime Wedge", 0),
 		}),
-		bar.Stir("Cuba Libre", []*bar.Drink{
+		bar.Mix("Cuba Libre", "Stir", []*bar.Drink{
 			b.Use("Rum", 1.5),
 			b.Use("Coke", 3),
 			b.Use("Lime Juice", 0.5),
 			b.Use("Lime Wedge", 0),
 		}),
-		bar.Shake("Pina Colada", []*bar.Drink{
+		bar.Mix("Pina Colada", "Shake", []*bar.Drink{
 			b.Use("Rum", 1),
 			b.Use("Pineapple Juice", 2),
 			b.Use("Coconut Cream", 1.5),
 			b.Use("Pineapple Wedge", 0),
 		}),
-		bar.Shake("Cosmopolitan", []*bar.Drink{
+		bar.Mix("Cosmopolitan", "Shake", []*bar.Drink{
 			b.Use("Rum", 1),
 			b.Use("Cranberry Juice", 1),
 			b.Use("Cointreau", 0.5),
@@ -140,20 +140,20 @@ func main() {
 		}),
 
 		// Whiskey
-		bar.Shake("Whiskey Sour", []*bar.Drink{
+		bar.Mix("Whiskey Sour", "Shake", []*bar.Drink{
 			b.Use("Whiskey", 2),
 			b.Use("Lemon Juice", 0.75),
 			b.Use("Simple Syrup", 0.5),
 			b.Use("Egg White", 0.1),
 			b.Use("Orange Wedge", 0),
 		}),
-		bar.Shake("Manhattan", []*bar.Drink{
+		bar.Mix("Manhattan", "Shake", []*bar.Drink{
 			b.Use("Whiskey", 2),
 			b.Use("Sweet Vermouth", 1),
 			b.Use("Angostura Bitters", 0.1),
 			b.Use("Cherry", 0),
 		}),
-		bar.Shake("Boulevardier", []*bar.Drink{
+		bar.Mix("Boulevardier", "Shake", []*bar.Drink{
 			b.Use("Whiskey", 1.5),
 			b.Use("Sweet Vermouth", 1),
 			b.Use("Campari", 1),
